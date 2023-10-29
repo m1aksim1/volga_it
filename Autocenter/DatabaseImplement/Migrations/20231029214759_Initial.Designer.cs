@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DatabaseImplement.Migrations
 {
     [DbContext(typeof(AutocenterDB))]
-    [Migration("20231028220932_Initial")]
+    [Migration("20231029214759_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -47,6 +47,53 @@ namespace DatabaseImplement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Persons");
+                });
+
+            modelBuilder.Entity("DatabaseImplement.Models.Transport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("CanBeRented")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("TypeTransport")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("dayPrice")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("identifier")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("longitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("minutePrice")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Transports");
                 });
 #pragma warning restore 612, 618
         }

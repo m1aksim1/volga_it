@@ -5,7 +5,7 @@ namespace DataModels
     public interface IPaymentModel : IId
     {
         double Sum { get; }
-		int CarByPurchaseId { get; }
+		int TransportByPurchaseId { get; }
         DateOnly Date { get; }
     }
 }

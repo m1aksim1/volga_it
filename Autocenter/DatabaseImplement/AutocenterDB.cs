@@ -20,5 +20,6 @@ namespace DatabaseImplement
         }
 
         public virtual DbSet<Person> Persons { set; get; }
+        public virtual DbSet<Transport> Transports { set; get; }
     }
 }

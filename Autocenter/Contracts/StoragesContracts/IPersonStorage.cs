@@ -9,5 +9,6 @@ namespace Contracts.StoragesContracts
         PersonViewModel? GetElement(PersonSearchModel model);
         PersonViewModel? Insert(PersonBindingModel model);
         PersonViewModel? Update(PersonBindingModel model);
+        PersonViewModel? Delete(PersonBindingModel model);
     }
 }

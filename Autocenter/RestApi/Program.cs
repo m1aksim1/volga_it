@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddTransient<IPersonStorage, PersonStorage>();
 builder.Services.AddTransient<IPersonLogic, PersonLogic>();
+builder.Services.AddTransient<ITransportStorage, TransportStorage>();
+builder.Services.AddTransient<ITransportLogic, TransportLogic>();
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

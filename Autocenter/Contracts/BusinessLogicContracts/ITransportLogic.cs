@@ -4,7 +4,7 @@ using Contracts.ViewModels;
 
 namespace Contracts.BusinessLogicContracts
 {
-    public interface ICarLogic
+    public interface ITransportLogic
     {
         List<TransportViewModel> ReadList(TransportSearchModel? model = null);
         TransportViewModel ReadElement(TransportSearchModel model);

@@ -3,6 +3,7 @@ using Contracts.SearchModels;
 using Contracts.StoragesContracts;
 using Contracts.ViewModels;
 using DatabaseImplement.Models;
+using System.Xml.Linq;
 
 namespace DatabaseImplement.Implements
 {
@@ -41,6 +42,19 @@ namespace DatabaseImplement.Implements
             res?.Update(model);
             context.SaveChanges();
             return res?.GetViewModel;
+        }
+
+        public PersonViewModel? Delete(PersonBindingModel model)
+        {
+            using var context = new AutocenterDB();
+            var element = context.Persons.FirstOrDefault(x => x.Id == model.Id);
+            if (element != null)
+            {
+                context.Persons.Remove(element);
+                context.SaveChanges();
+                return element.GetViewModel;
+            }
+            return null;
         }
     }
 }

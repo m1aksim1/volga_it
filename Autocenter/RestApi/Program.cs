@@ -1,11 +1,26 @@
+using BusinessLogics;
+using Contracts.BusinessLogicContracts;
+using Contracts.StoragesContracts;
+using DatabaseImplement.Implements;
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddTransient<IPersonStorage, PersonStorage>();
+builder.Services.AddTransient<IPersonLogic, PersonLogic>();
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "RestApi",
+        Version = "v1"
+    });
+});
 
 var app = builder.Build();
 
@@ -13,7 +28,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json",
+    "RestApi v1"));
 }
 
 app.UseHttpsRedirection();

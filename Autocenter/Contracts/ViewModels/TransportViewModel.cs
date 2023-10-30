@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using DataModels.Enums;
+using DataModels.HelperInterfaces;
 
 namespace Contracts.ViewModels
 {
@@ -13,18 +14,20 @@ namespace Contracts.ViewModels
 
         public string Color { get; set; } = string.Empty;
 
-        public string identifier { get; set; } = string.Empty;
+        public string Identifier { get; set; } = string.Empty;
 
-        public string description { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
-        public double latitude { get; set; }
+        public double Latitude { get; set; }
 
-        public double longitude { get; set; }
+        public double Longitude { get; set; }
 
-        public double minutePrice { get; set; }
+        public double MinutePrice { get; set; }
 
-        public double dayPrice { get; set; }
+        public double DayPrice { get; set; }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
+
+        public long OwnerId { get; set; }
     }
 }

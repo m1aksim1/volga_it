@@ -4,9 +4,9 @@ namespace DataModels
 {
     public interface IPersonModel : IId
     {
-        string Login { get;}
+        string Username { get;}
         string Password { get;}
-        string Role { get;}
+        bool IsAdmin { get;}
         double Money { get;}
     }
 }

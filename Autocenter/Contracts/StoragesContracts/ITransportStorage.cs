@@ -12,6 +12,5 @@ namespace Contracts.StoragesContracts
         TransportViewModel? Insert(TransportBindingModel model);
         TransportViewModel? Update(TransportBindingModel model);
         TransportViewModel? Delete(TransportBindingModel model);
-
     }
 }

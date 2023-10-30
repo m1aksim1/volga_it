@@ -7,7 +7,7 @@ namespace Contracts.SearchModels
     {
         public bool CanBeRented { get; set; }
 
-        public TypeTransport TypeTransport { get; set; }
+        public TypeTransport? Type { get; set; }
 
         public string Model { get; set; } = string.Empty;
 
@@ -15,16 +15,18 @@ namespace Contracts.SearchModels
 
         public string identifier { get; set; } = string.Empty;
 
-        public string? description { get; set; } = string.Empty;
+        public string? description { get; set; }
 
-        public double latitude { get; set; }
+        public double Latitude { get; set; }
 
-        public double longitude { get; set; }
+        public double Longitude { get; set; }
 
         public double? minutePrice { get; set; }
 
         public double? dayPrice { get; set; }
 
-        public int? Id { get; set; }
+        public long? Id { get; set; }
+
+        public double Radius { get; set; }
     }
 }

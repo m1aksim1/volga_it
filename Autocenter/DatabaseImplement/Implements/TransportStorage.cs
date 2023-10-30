@@ -3,6 +3,7 @@ using Contracts.SearchModels;
 using Contracts.StoragesContracts;
 using Contracts.ViewModels;
 using DatabaseImplement.Models;
+using DataModels.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,12 @@ namespace DatabaseImplement.Implements
             }
             using var context = new AutocenterDB();
             var query = context.Transports;
-            return new();
+            return context.Transports
+               .Select(x => x.GetViewModel)
+                .Where(x => x.CanBeRented && (model.Type == null || x.TypeTransport == model.Type) &&
+                        model.Latitude - model.Radius <= x.Latitude && x.Latitude <= model.Latitude + model.Radius &&
+                        model.Longitude - model.Radius <= x.Longitude && x.Longitude <= model.Longitude + model.Radius)
+               .ToList();
         }
 
         public List<TransportViewModel> GetFullList()
@@ -82,14 +88,14 @@ namespace DatabaseImplement.Implements
         public TransportViewModel? Update(TransportBindingModel model)
         {
             using var context = new AutocenterDB();
-            var car = context.Transports.FirstOrDefault(x => x.Id == model.Id);
-            if (car == null)
+            var transport = context.Transports.FirstOrDefault(x => x.Id == model.Id);
+            if (transport == null)
             {
                 return null;
             }
-            car.Update(model);
+            transport.Update(model);
             context.SaveChanges();
-            return car.GetViewModel;
+            return transport.GetViewModel;
         }
     }
 }

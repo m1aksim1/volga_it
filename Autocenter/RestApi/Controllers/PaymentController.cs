@@ -24,9 +24,9 @@ namespace RestApi.Controllers
             });
             _logic.Update(new PersonBindingModel
             {
-                Login = model.Login, 
+                Username = model.Username, 
                 Password = model.Password, 
-                Role = model.Role, 
+                IsAdmin = model.IsAdmin, 
                 Money = model.Money+250000
         });         
         }

@@ -4,10 +4,10 @@ namespace Contracts.BindingModels
 {
     public class PersonBindingModel : IPersonModel
     {
-        public string Login { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public string Role { get; set; } = string.Empty;
+        public bool IsAdmin { get; set; }
         public double Money { get; set; }
-        public int Id { get; set; }
+        public long Id { get; set; }
     }
 }

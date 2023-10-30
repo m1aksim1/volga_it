@@ -16,28 +16,18 @@ namespace DatabaseImplement.Models
 {
     public class Transport : ITransportModel
     {
-        [Required]
         public bool CanBeRented { get; set; }
-        [Required]
         public TypeTransport TypeTransport { get; set; }
-        [Required]
         public string Model { get; set; } = string.Empty;
-        [Required]
         public string Color { get; set; } = string.Empty;
-        [Required]
-        public string identifier { get; set; } = string.Empty;
-        [Required]
-        public string description { get; set; } = string.Empty;
-        [Required]
-        public double latitude { get; set; }
-        [Required]
-        public double longitude { get; set; }
-        [Required]
-        public double minutePrice { get; set; }
-        [Required]
-        public double dayPrice { get; set; }
-        [Required]
-        public int Id { get; set; }
+        public string Identifier { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double MinutePrice { get; set; }
+        public double DayPrice { get; set; }
+        public long Id { get; set; }
+        public long OwnerId { get; set; }
 
         public static Transport Create(TransportBindingModel model)
         {
@@ -51,13 +41,14 @@ namespace DatabaseImplement.Models
                 TypeTransport = model.TypeTransport,
                 Model = model.Model,
                 Color = model.Color,
-                identifier = model.identifier,
-                description = model.description,  
-                latitude = model.latitude,
-                longitude = model.longitude,
-                minutePrice = model.minutePrice,
-                dayPrice = model.dayPrice,
-                Id = model.Id
+                Identifier = model.Identifier,
+                Description = model.Description,  
+                Latitude = model.Latitude,
+                Longitude = model.Longitude,
+                MinutePrice = model.MinutePrice,
+                DayPrice = model.DayPrice,
+                Id = model.Id,
+                OwnerId = model.OwnerId
             };
         }
 
@@ -67,14 +58,16 @@ namespace DatabaseImplement.Models
             TypeTransport = TypeTransport,
             Model = Model,
             Color = Color,
-            identifier = identifier,
-            description = description,
-            latitude = latitude,
-            longitude = longitude,
-            minutePrice = minutePrice,
-            dayPrice = dayPrice,
-            Id = Id
+            Identifier = Identifier,
+            Description = Description,
+            Latitude = Latitude,
+            Longitude = Longitude,
+            MinutePrice = MinutePrice,
+            DayPrice = DayPrice,
+            Id = Id,
+            OwnerId = OwnerId,
         };
+
 
         public void Update(TransportBindingModel model)
         {
@@ -82,12 +75,13 @@ namespace DatabaseImplement.Models
             TypeTransport = TypeTransport;
             Model = Model;
             Color = Color;
-            identifier = identifier;
-            description = description;
-            latitude = latitude;
-            longitude = longitude;
-            minutePrice = minutePrice;
-            dayPrice = dayPrice;
+            Identifier = Identifier;
+            Description = Description;
+            Latitude = Latitude;
+            Longitude = Longitude;
+            MinutePrice = MinutePrice;
+            DayPrice = DayPrice;
+            OwnerId = OwnerId;
         }
     }
 }

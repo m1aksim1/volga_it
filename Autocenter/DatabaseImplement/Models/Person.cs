@@ -1,22 +1,19 @@
 ﻿using Contracts.BindingModels;
 using Contracts.ViewModels;
 using DataModels;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace DatabaseImplement.Models
 {
+    [Index("Username", IsUnique = true)]
     public class Person : IPersonModel
     {
-        public int Id { get; set; }
-  
-        [Required]
-        public string Login { get; set; } = string.Empty;
-        [Required]
-        public string Password { get; private set; } = string.Empty;
-        [Required]
-        public string Role { get; private set; } = string.Empty;
-        [Required]
-        public double Money { get; private set; }
+        public long Id { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public bool IsAdmin { get; set; }
+        public double Money { get; set; }
 
         public static Person Create(PersonBindingModel model)
         {
@@ -26,10 +23,10 @@ namespace DatabaseImplement.Models
 			}
 			return new Person()
             {
-                Login = model.Login,
+                Username = model.Username,
                 Password = model.Password,
                 Id = model.Id,
-                Role = model.Role,
+                IsAdmin = model.IsAdmin,
                 Money = model.Money,
             };
         }
@@ -39,18 +36,18 @@ namespace DatabaseImplement.Models
             {
                 return;
             }
-            Login = model.Login;
+            Username = model.Username;
             Password = model.Password;
-            Role = model.Role;
+            IsAdmin = model.IsAdmin;
             Money = model.Money;
         }
 
         public PersonViewModel GetViewModel => new()
         {
-            Login = Login,
+            Username = Username,
             Password = Password,
             Id = Id,
-            Role = Role,
+            IsAdmin = IsAdmin,
             Money = Money,
         };
     }

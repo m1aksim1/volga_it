@@ -13,15 +13,22 @@ namespace DatabaseImplement.Implements
         {
             if (model == null) 
                 throw new ArgumentNullException("Передаваемая модель для поиска равна нулю", nameof(model));
-            if (!model.Id.HasValue && string.IsNullOrEmpty(model.Login) && string.IsNullOrEmpty(model.Password))
+            if (!model.Id.HasValue && string.IsNullOrEmpty(model.Username) && string.IsNullOrEmpty(model.Password))
                 throw new ArgumentException("Все передаваемые поля поисковой модели оказались пусты или равны null");
         }
         public PersonViewModel? GetElement(PersonSearchModel model)
         {
             CheckSearchModel(model);
             using var context = new AutocenterDB();
-           
-            return context.Persons.FirstOrDefault(x => x.Login.Equals(model.Login) && (string.IsNullOrEmpty(model.Password) || x.Password.Equals(model.Password)))?.GetViewModel;
+            if(model.Username == "" && model.Password == "")
+            {
+                return context.Persons.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
+            }
+            return context.Persons.FirstOrDefault(x => x.Username.Equals(model.Username) 
+                                                    && (string.IsNullOrEmpty(model.Password) 
+                                                    || x.Password.Equals(model.Password)
+                                                    || (model.Id.HasValue 
+                                                    && x.Id == model.Id)))?.GetViewModel;
         }
         public PersonViewModel? Insert(PersonBindingModel model)
         {

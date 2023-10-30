@@ -5,15 +5,16 @@ namespace DataModels
 {
 	public interface ITransportModel : IId
 	{
+		long OwnerId { get; }
         bool CanBeRented { get; }
         TypeTransport TypeTransport { get; }
 		string Model { get; }
 		string Color { get; }
-		string identifier { get; }
-		string description { get; }
-		double latitude { get; }
-		double longitude { get; }
-        double minutePrice { get; }
-		double dayPrice { get; }
+		string Identifier { get; }
+		string Description { get; }
+		double Latitude { get; }
+		double Longitude { get; }
+        double MinutePrice { get; }
+		double DayPrice { get; }
 	}
 }

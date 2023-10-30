@@ -15,6 +15,8 @@ namespace DatabaseImplement.Models
         public string Password { get; private set; } = string.Empty;
         [Required]
         public string Role { get; private set; } = string.Empty;
+        [Required]
+        public double Money { get; private set; }
 
         public static Person Create(PersonBindingModel model)
         {
@@ -28,6 +30,7 @@ namespace DatabaseImplement.Models
                 Password = model.Password,
                 Id = model.Id,
                 Role = model.Role,
+                Money = model.Money,
             };
         }
         public void Update(PersonBindingModel model)
@@ -39,6 +42,7 @@ namespace DatabaseImplement.Models
             Login = model.Login;
             Password = model.Password;
             Role = model.Role;
+            Money = model.Money;
         }
 
         public PersonViewModel GetViewModel => new()
@@ -47,6 +51,7 @@ namespace DatabaseImplement.Models
             Password = Password,
             Id = Id,
             Role = Role,
+            Money = Money,
         };
     }
 }

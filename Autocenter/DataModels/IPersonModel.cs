@@ -7,5 +7,6 @@ namespace DataModels
         string Login { get;}
         string Password { get;}
         string Role { get;}
+        double Money { get;}
     }
 }

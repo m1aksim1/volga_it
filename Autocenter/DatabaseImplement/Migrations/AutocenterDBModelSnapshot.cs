@@ -33,6 +33,9 @@ namespace DatabaseImplement.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<double>("Money")
+                        .HasColumnType("double precision");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");

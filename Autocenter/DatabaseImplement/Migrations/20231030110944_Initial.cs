@@ -19,7 +19,8 @@ namespace DatabaseImplement.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Login = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
-                    Role = table.Column<string>(type: "text", nullable: false)
+                    Role = table.Column<string>(type: "text", nullable: false),
+                    Money = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {

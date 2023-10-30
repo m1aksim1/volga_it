@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DatabaseImplement.Migrations
 {
     [DbContext(typeof(AutocenterDB))]
-    [Migration("20231029214759_Initial")]
+    [Migration("20231030110944_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -35,6 +35,9 @@ namespace DatabaseImplement.Migrations
                     b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<double>("Money")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("Password")
                         .IsRequired()

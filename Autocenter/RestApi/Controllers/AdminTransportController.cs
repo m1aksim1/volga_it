@@ -18,6 +18,7 @@ namespace RestApi.Controllers
         {
             _logic = logic;
         }
+        
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public List<TransportViewModel>? Transport(int start = 0,int count = 10,TransportType type = TransportType.All)
@@ -63,6 +64,7 @@ namespace RestApi.Controllers
             }
 
         }
+        
         [HttpPut]
         [Authorize(Roles = "Admin")]
         public void Transport(int id, TransportBindingModel model)
@@ -77,6 +79,7 @@ namespace RestApi.Controllers
             }
 
         }
+        
         [HttpDelete]
         [Route("{id}")]
         [Authorize(Roles = "Admin")]

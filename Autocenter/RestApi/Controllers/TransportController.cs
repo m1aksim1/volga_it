@@ -15,9 +15,10 @@ namespace RestApi.Controllers
         {
             _logic = logic;
         }
+        
         [HttpGet]
         [Route("{id}")]
-        public TransportViewModel? TransportGet(int id)
+        public TransportViewModel? Transport(int id)
         {
             try
             {
@@ -29,8 +30,9 @@ namespace RestApi.Controllers
             }
             
         }
+        
         [HttpPost]
-        public void TransportCreate(TransportBindingModel model)
+        public void Transport(TransportBindingModel model)
         {
             try
             {
@@ -42,8 +44,10 @@ namespace RestApi.Controllers
             }
 
         }
+        
         [HttpPut]
-        public void TransportUpdate(int id,TransportBindingModel model)
+        [Route("{id}")]
+        public void Transport(int id,TransportBindingModel model)
         {
             try
             {
@@ -55,6 +59,7 @@ namespace RestApi.Controllers
             }
 
         }
+        
         [HttpDelete]
         public void TransportDelete(int id)
         {

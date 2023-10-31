@@ -16,6 +16,8 @@ namespace Contracts.ViewModels
 
         public double PriceOfUnit { get; set; }
 
+        public TypeRent PriceType { get; set; }
+
         public long Id { get; set; }
     }
 }

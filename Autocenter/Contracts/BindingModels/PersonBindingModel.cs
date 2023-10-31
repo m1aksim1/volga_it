@@ -7,7 +7,7 @@ namespace Contracts.BindingModels
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public bool IsAdmin { get; set; }
-        public double Money { get; set; }
+        public double Balance { get; set; }
         public long Id { get; set; }
     }
 }

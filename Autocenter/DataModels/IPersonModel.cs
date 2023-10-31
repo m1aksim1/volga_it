@@ -7,6 +7,6 @@ namespace DataModels
         string Username { get;}
         string Password { get;}
         bool IsAdmin { get;}
-        double Money { get;}
+        double Balance { get;}
     }
 }

@@ -27,7 +27,7 @@ namespace RestApi.Controllers
                 Username = model.Username, 
                 Password = model.Password, 
                 IsAdmin = model.IsAdmin, 
-                Money = model.Money+250000
+                Balance = model.Balance+250000
         });         
         }
     }

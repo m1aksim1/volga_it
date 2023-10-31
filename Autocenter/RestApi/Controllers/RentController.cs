@@ -37,18 +37,18 @@ namespace RestApi.Controllers
             return _rentLogic.ReadElement(new RentSearchModel { Id = id });
         }
         [HttpGet]
-        public RentViewModel MyHistory()
+        public List<RentViewModel> MyHistory()
         {
-            return _rentLogic.ReadElement(new RentSearchModel
+            return _rentLogic.ReadList(new RentSearchModel
             {
                 PersonId = Convert.ToInt64(User.Identity.Name)
             });
         }
         [HttpGet]
         [Route("{transportId}")]
-        public RentViewModel TransportHistory(long transportId)
+        public List<RentViewModel> TransportHistory(long transportId)
         {
-            return _rentLogic.ReadElement(new RentSearchModel
+            return _rentLogic.ReadList(new RentSearchModel
             {
                 TransportId = transportId
             });
@@ -58,7 +58,6 @@ namespace RestApi.Controllers
         [Route("{transportId}")]
         public void New(long transportId,TypeRent rentType)
         {
-
             _rentLogic.Create(new RentBindingModel
             {
                 PersonId = Convert.ToInt32(User.Identity.Name),
@@ -78,7 +77,7 @@ namespace RestApi.Controllers
             _transportLogic.Update(new TransportBindingModel
             {
                 Id = transport.Id,
-                CanBeRented = transport.CanBeRented,
+                CanBeRented = true,
                 Color = transport.Color,
                 DayPrice = transport.DayPrice,
                 Description = transport.Description,
@@ -91,5 +90,6 @@ namespace RestApi.Controllers
                 TypeTransport = transport.TypeTransport
             });
         }
+    
     }
 }

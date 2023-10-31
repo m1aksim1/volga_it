@@ -3,6 +3,8 @@ using Contracts.SearchModels;
 using Contracts.StoragesContracts;
 using Contracts.ViewModels;
 using DatabaseImplement.Models;
+using System;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace DatabaseImplement.Implements
@@ -15,6 +17,28 @@ namespace DatabaseImplement.Implements
                 throw new ArgumentNullException("Передаваемая модель для поиска равна нулю", nameof(model));
             if (!model.Id.HasValue && string.IsNullOrEmpty(model.Username) && string.IsNullOrEmpty(model.Password))
                 throw new ArgumentException("Все передаваемые поля поисковой модели оказались пусты или равны null");
+        }
+
+        public List<PersonViewModel> GetFilteredList(PersonSearchModel model)
+        {
+            using var context = new AutocenterDB();
+            if (model.start.HasValue && model.count.HasValue)
+            {
+                return context.Persons
+               .Skip((int)model.start).Take((int)model.count)
+               .Select(x => x.GetViewModel)
+               .ToList();
+            }
+            return context.Persons
+               .Select(x => x.GetViewModel)
+               .ToList();
+        }
+        public List<PersonViewModel> GetFullList()
+        {
+            using var context = new AutocenterDB();
+            return context.Persons
+                .Select(x => x.GetViewModel)
+                .ToList();
         }
         public PersonViewModel? GetElement(PersonSearchModel model)
         {
@@ -50,7 +74,6 @@ namespace DatabaseImplement.Implements
             context.SaveChanges();
             return res?.GetViewModel;
         }
-
         public PersonViewModel? Delete(PersonBindingModel model)
         {
             using var context = new AutocenterDB();

@@ -47,6 +47,20 @@ namespace BusinessLogics
                 throw;
             }
         }
+
+        public List<PersonViewModel> ReadList(PersonSearchModel? model = null)
+        {
+            try
+            {
+                var results = model != null ? _personStorage.GetFilteredList(model) : _personStorage.GetFullList();
+                return results;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
         public bool Update(PersonBindingModel model)
         {
             //CheckModel(model);
@@ -56,5 +70,15 @@ namespace BusinessLogics
             }
             return true;
         }
+        public bool Delete(PersonBindingModel model)
+        {
+            //CheckModel(model);
+            if (_personStorage.Delete(model) == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
     }
 }

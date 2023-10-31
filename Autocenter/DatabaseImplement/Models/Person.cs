@@ -13,7 +13,7 @@ namespace DatabaseImplement.Models
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public bool IsAdmin { get; set; }
-        public double Money { get; set; }
+        public double Balance { get; set; }
 
         public static Person Create(PersonBindingModel model)
         {
@@ -27,7 +27,7 @@ namespace DatabaseImplement.Models
                 Password = model.Password,
                 Id = model.Id,
                 IsAdmin = model.IsAdmin,
-                Money = model.Money,
+                Balance = model.Balance,
             };
         }
         public void Update(PersonBindingModel model)
@@ -39,7 +39,7 @@ namespace DatabaseImplement.Models
             Username = model.Username;
             Password = model.Password;
             IsAdmin = model.IsAdmin;
-            Money = model.Money;
+            Balance = model.Balance;
         }
 
         public PersonViewModel GetViewModel => new()
@@ -48,7 +48,7 @@ namespace DatabaseImplement.Models
             Password = Password,
             Id = Id,
             IsAdmin = IsAdmin,
-            Money = Money,
+            Balance = Balance,
         };
     }
 }

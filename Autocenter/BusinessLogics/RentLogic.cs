@@ -17,32 +17,49 @@ namespace BusinessLogics
             _rentStorage = rentStorage;
             _transportStorage = transportStorage;
         }
-        public bool CheckModel(RentBindingModel model) 
+        public void CheckModel(RentBindingModel model) 
         {
             var transport = _transportStorage.GetElement(new TransportSearchModel { Id = model.TransportId });
             if (model == null)
             {
-                return false;
+                throw new ArgumentNullException($"модель пустая");
+            }
+            else if (!transport.CanBeRented)
+            {
+                throw new ArgumentNullException($"Транспорт уже арендован");
             }
             else if (model.PersonId == transport.OwnerId)
             {
-                return false;
+                throw new ArgumentNullException($"нельзя брать в аренду собственный транспорт");
             }
-            return true;
         }
         public bool Create(RentBindingModel model)
         {
             try
             {
-                if (CheckModel(model))
-                {
-                    throw new ArgumentNullException($"нельзя брать в аренду собственный транспорт");
-                }
+                CheckModel(model);
+  
                 var result = _rentStorage.Insert(model);
                 if (result == null)
                 {
                     throw new ArgumentNullException($"Клиент не создался");
                 }
+                var transport = _transportStorage.GetElement(new TransportSearchModel { Id = model.TransportId });
+                _transportStorage.Update(new TransportBindingModel 
+                {
+                    Id = transport.Id,
+                    CanBeRented = false,
+                    Color = transport.Color,
+                    DayPrice = transport.DayPrice,
+                    Description = transport.Description,
+                    Identifier = transport.Identifier,
+                    Latitude = transport.Latitude,
+                    Longitude = transport.Longitude,
+                    MinutePrice = transport.MinutePrice,
+                    Model = transport.Model,
+                    OwnerId = transport.OwnerId,
+                    TypeTransport = transport.TypeTransport
+                });
                 return true;
             }
             catch (Exception)
@@ -75,7 +92,7 @@ namespace BusinessLogics
                 var result = _rentStorage.GetElement(model);
                 if (result == null)
                 {
-                    throw new ArgumentNullException($"Не получилось получить эдемент с id {model.Id}");
+                    throw new ArgumentNullException($"Не получилось получить элемент с id {model.Id}");
                 }
                 return result;
             }
@@ -121,8 +138,8 @@ namespace BusinessLogics
             
             var price = element.PriceOfUnit * element.RentType switch
             {
-                TypeRent.Дни => diff.TotalDays + 1,
-                TypeRent.Минуты => diff.TotalMinutes + 1,
+                TypeRent.Days => diff.TotalDays + 1,
+                TypeRent.Minutes => diff.TotalMinutes + 1,
                 _ => 0
             };
             _rentStorage.Update(new RentBindingModel 
@@ -133,7 +150,7 @@ namespace BusinessLogics
                 DateStart = element.DateStart,
                 PriceOfUnit = element.PriceOfUnit,
                 TransportId = element.TransportId,
-                DateEnd = DateTime.Now,     
+                DateEnd = DateTime.UtcNow,     
                 FinalPrice = price,
             });
             return true;

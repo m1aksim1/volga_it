@@ -30,19 +30,16 @@ namespace DatabaseImplement.Implements
                 return null;
             }
             using var context = new AutocenterDB();
-            return context.Rents.FirstOrDefault(x => model.Id.HasValue && x.Id == model.Id)?.GetViewModel;
+            return context.Rents.FirstOrDefault(x => model.Id.HasValue && x.Id == model.Id || x.TransportId == model.TransportId)?.GetViewModel;
         }
 
         public List<RentViewModel> GetFilteredList(RentSearchModel model)
         {
-            if (model.Id.HasValue)
-            {
-                var res = GetElement(model);
-                return res != null ? new() { res } : new();
-            }
             using var context = new AutocenterDB();
-            var query = context.Rents;
-            return new();
+            return context.Rents
+                .Where(x => x.TransportId == model.TransportId || x.PersonId == model.PersonId)
+                .Select(x => x.GetViewModel)
+                .ToList();
         }
 
         public List<RentViewModel> GetFullList()
@@ -62,11 +59,11 @@ namespace DatabaseImplement.Implements
             }
             using var context = new AutocenterDB();
             var transport = context.Transports.FirstOrDefault(x => x.Id == model.TransportId);
-            if(newRent.PriceType == TypeRent.Дни)
+            if(newRent.PriceType == TypeRent.Days)
             {
                 newRent.PriceOfUnit = transport.DayPrice;
             }
-            else if(newRent.PriceType == TypeRent.Минуты)
+            else if(newRent.PriceType == TypeRent.Minutes)
             {
                 newRent.PriceOfUnit = transport.MinutePrice;
             }

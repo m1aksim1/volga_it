@@ -11,8 +11,8 @@ namespace DatabaseImplement.Models
     {
         public long TransportId { get; set; }
         public long PersonId { get; set; }
-        public DateOnly DateStart { get; set; }
-        public DateOnly DateEnd { get; set; }
+        public DateTime DateStart { get; set; }
+        public DateTime? DateEnd { get; set; }
         public TypeRent PriceType { get; set; }
         public double PriceOfUnit { get; set; }
         public double FinalPrice { get; set; }

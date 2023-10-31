@@ -2,7 +2,7 @@
 {
     public enum TypeRent
     {
-        Минуты = 0,
-        Дни = 1,
+        Minutes = 0,
+        Days = 1,
     }
 }

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DatabaseImplement.Models
 {
@@ -71,17 +72,17 @@ namespace DatabaseImplement.Models
 
         public void Update(TransportBindingModel model)
         {
-            CanBeRented = CanBeRented;
-            TypeTransport = TypeTransport;
-            Model = Model;
-            Color = Color;
-            Identifier = Identifier;
-            Description = Description;
-            Latitude = Latitude;
-            Longitude = Longitude;
-            MinutePrice = MinutePrice;
-            DayPrice = DayPrice;
-            OwnerId = OwnerId;
+            CanBeRented = model.CanBeRented;
+            TypeTransport = model.TypeTransport;
+            Model = model.Model;
+            Color = model.Color;
+            Identifier = model.Identifier;
+            Description = model.Description;
+            Latitude = model.Latitude;
+            Longitude = model.Longitude;
+            MinutePrice = model.MinutePrice;
+            DayPrice = model.DayPrice;
+            OwnerId = model.OwnerId;
         }
     }
 }

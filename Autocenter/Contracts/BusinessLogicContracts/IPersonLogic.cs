@@ -6,8 +6,10 @@ namespace Contracts.BusinessLogicContracts
 {
     public interface IPersonLogic
     {
+        List<PersonViewModel> ReadList(PersonSearchModel? model = null);
         PersonViewModel? ReadElement(PersonSearchModel model);
         bool Create(PersonBindingModel model);
         bool Update(PersonBindingModel model);
+        bool Delete(PersonBindingModel model);
     }
 }

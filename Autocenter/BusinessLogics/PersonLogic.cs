@@ -6,14 +6,14 @@ using Contracts.ViewModels;
 
 namespace BusinessLogics
 {
-    public class PersonLogic : IPersonLogic
+    public class UserLogic : IUserLogic
     {
-        private readonly IPersonStorage _personStorage;
-        public PersonLogic(IPersonStorage clientStorage)
+        private readonly IUserStorage _personStorage;
+        public UserLogic(IUserStorage clientStorage)
         {
             _personStorage = clientStorage;
         }
-        public bool Create(PersonBindingModel model)
+        public bool Create(UserBindingModel model)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace BusinessLogics
             }
         }
 
-        public PersonViewModel ReadElement(PersonSearchModel model)
+        public UserViewModel ReadElement(UserSearchModel model)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace BusinessLogics
             }
         }
 
-        public List<PersonViewModel> ReadList(PersonSearchModel? model = null)
+        public List<UserViewModel> ReadList(UserSearchModel? model = null)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace BusinessLogics
             }
         }
 
-        public bool Update(PersonBindingModel model)
+        public bool Update(UserBindingModel model)
         {
             //CheckModel(model);
             if (_personStorage.Update(model) == null)
@@ -70,7 +70,7 @@ namespace BusinessLogics
             }
             return true;
         }
-        public bool Delete(PersonBindingModel model)
+        public bool Delete(UserBindingModel model)
         {
             //CheckModel(model);
             if (_personStorage.Delete(model) == null)

@@ -16,18 +16,18 @@ namespace RestApi.Controllers
     [ApiController]
     public class AdminAccountController : Controller
     {
-        private readonly IPersonLogic _logic;
-        public AdminAccountController(IPersonLogic logic)
+        private readonly IUserLogic _logic;
+        public AdminAccountController(IUserLogic logic)
         {
             _logic = logic;
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public List<PersonViewModel> Account(int start = 0, int count = 5)
+        public List<UserViewModel> Account(int start = 0, int count = 5)
         {
             try
             {
-                return _logic.ReadList(new PersonSearchModel { start = start, count = count});
+                return _logic.ReadList(new UserSearchModel { start = start, count = count});
             }
             catch (Exception ex)
             {
@@ -37,11 +37,11 @@ namespace RestApi.Controllers
         [HttpGet]
         [Authorize(Roles = "Admin")]
         [Route("{id}")]
-        public PersonViewModel Account(int id)
+        public UserViewModel Account(int id)
         {
             try
             {
-                return _logic.ReadElement(new PersonSearchModel { Id = id });
+                return _logic.ReadElement(new UserSearchModel { Id = id });
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace RestApi.Controllers
         {
             try
             {
-                _logic.Create(new PersonBindingModel { 
+                _logic.Create(new UserBindingModel { 
                     IsAdmin = model.isAdmin,
                     Balance = model.balance,
                     Password = model.password,
@@ -74,7 +74,7 @@ namespace RestApi.Controllers
         {
             try
             {
-                _logic.Update(new PersonBindingModel
+                _logic.Update(new UserBindingModel
                 {
                     Id = id,
                     IsAdmin = model.isAdmin,
@@ -96,7 +96,7 @@ namespace RestApi.Controllers
         {
             try
             {
-                _logic.Delete(new PersonBindingModel { Id = id });
+                _logic.Delete(new UserBindingModel { Id = id });
                 return Ok();
             }
             catch (Exception ex)

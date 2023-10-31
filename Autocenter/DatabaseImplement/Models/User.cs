@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace DatabaseImplement.Models
 {
     [Index("Username", IsUnique = true)]
-    public class Person : IPersonModel
+    public class User : IUserModel
     {
         public long Id { get; set; }
         public string Username { get; set; } = string.Empty;
@@ -15,13 +15,13 @@ namespace DatabaseImplement.Models
         public bool IsAdmin { get; set; }
         public double Balance { get; set; }
 
-        public static Person Create(PersonBindingModel model)
+        public static User Create(UserBindingModel model)
         {
 			if (model == null)
 			{
 				return null;
 			}
-			return new Person()
+			return new User()
             {
                 Username = model.Username,
                 Password = model.Password,
@@ -30,7 +30,7 @@ namespace DatabaseImplement.Models
                 Balance = model.Balance,
             };
         }
-        public void Update(PersonBindingModel model)
+        public void Update(UserBindingModel model)
         {
             if (model == null)
             {
@@ -42,7 +42,7 @@ namespace DatabaseImplement.Models
             Balance = model.Balance;
         }
 
-        public PersonViewModel GetViewModel => new()
+        public UserViewModel GetViewModel => new()
         {
             Username = Username,
             Password = Password,

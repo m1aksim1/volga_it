@@ -36,6 +36,8 @@ namespace RestApi.Controllers
         {
             try
             {
+                model.OwnerId = Convert.ToInt32(User.Identity.Name);
+                model.Id = 0;
                 _logic.Create(model);
             }
             catch (Exception ex)
@@ -51,7 +53,10 @@ namespace RestApi.Controllers
         {
             try
             {
-                _logic.Update(model);
+                model.Id = id;
+                if (model.OwnerId == Convert.ToInt32(User.Identity.Name)){
+                    _logic.Update(model);
+                }
             }
             catch (Exception ex)
             {
@@ -61,13 +66,17 @@ namespace RestApi.Controllers
         }
         
         [HttpDelete]
+        [Route("{id}")]
         public void TransportDelete(int id)
         {
             try
             {
                 TransportBindingModel Model = new TransportBindingModel();
                 Model.Id = id;
-                _logic.Delete(Model);
+                if (Model.OwnerId == Convert.ToInt32(User.Identity.Name))
+                {
+                    _logic.Delete(Model);
+                }
             }
             catch (Exception ex)
             {

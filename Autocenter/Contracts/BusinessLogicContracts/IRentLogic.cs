@@ -11,6 +11,6 @@ namespace Contracts.BusinessLogicContracts
         bool Create(RentBindingModel model);
         bool Update(RentBindingModel model);
         bool Delete(RentBindingModel model);
-        bool End(long id);   
+        bool End(long id,long UserRoleId);   
     }
 }

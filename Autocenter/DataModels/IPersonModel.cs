@@ -2,7 +2,7 @@
 
 namespace DataModels
 {
-    public interface IPersonModel : IId
+    public interface IUserModel : IId
     {
         string Username { get;}
         string Password { get;}

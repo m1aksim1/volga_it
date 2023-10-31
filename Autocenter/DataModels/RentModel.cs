@@ -6,7 +6,7 @@ namespace DataModels
     public interface IRentModel : IId
     {
         long TransportId { get; }
-        long PersonId { get; }
+        long UserId { get; }
         DateTime DateStart { get; }
         DateTime? DateEnd { get; }
         TypeRent PriceType { get; }

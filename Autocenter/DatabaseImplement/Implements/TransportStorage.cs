@@ -59,18 +59,18 @@ namespace DatabaseImplement.Implements
             if (model.Radius > 0)
             {
                 return context.Transports
-                   .Select(x => x.GetViewModel)
-                   .Where(x => x.CanBeRented && (model.Type == TransportType.All || x.TransportType == model.Type) &&
+                   .Where(x => x.CanBeRented && (model.Type == null || x.TransportType == model.Type) &&
                             model.Latitude - model.Radius <= x.Latitude && x.Latitude <= model.Latitude + model.Radius &&
                             model.Longitude - model.Radius <= x.Longitude && x.Longitude <= model.Longitude + model.Radius)
+                    .Select(x => x.GetViewModel)
                    .ToList();
             }
             else
             {
                 return context.Transports
                    .Skip(model.Start).Take(model.Count)
+                   .Where(x => model.Type == null || x.TransportType == model.Type)
                    .Select(x => x.GetViewModel)
-                   .Where(x => model.Type == TransportType.All || x.TransportType == model.Type)
                    .ToList();
             }
         }

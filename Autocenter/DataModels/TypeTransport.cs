@@ -2,9 +2,8 @@
 {
     public enum TransportType
     {
-        Автомобиль = 0,
-        Мотоцикл = 1,
-        Самокат = 2,
-        All = 3,
+        Car = 0,
+        Bike = 1,
+        Scooter = 2,
     }
 }

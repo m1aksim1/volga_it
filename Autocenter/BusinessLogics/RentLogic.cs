@@ -28,7 +28,7 @@ namespace BusinessLogics
             {
                 throw new ArgumentNullException($"Транспорт уже арендован");
             }
-            else if (model.PersonId == transport.OwnerId)
+            else if (model.UserId == transport.OwnerId)
             {
                 throw new ArgumentNullException($"нельзя брать в аренду собственный транспорт");
             }
@@ -131,9 +131,9 @@ namespace BusinessLogics
                 throw;
             }
         }
-        public bool End(long id)
+        public bool End(long id,long UserRoleId)
         {
-            var element = _rentStorage.GetElement(new RentSearchModel { Id = id });
+            var element = _rentStorage.GetElement(new RentSearchModel { Id = id,UserRoleId=UserRoleId });
             var diff = DateTime.UtcNow - element.DateStart;
             
             var price = element.PriceOfUnit * element.RentType switch
@@ -145,7 +145,7 @@ namespace BusinessLogics
             _rentStorage.Update(new RentBindingModel 
             { 
                 Id = id,
-                PersonId = element.PersonId,
+                UserId = element.UserId,
                 PriceType = element.RentType,
                 DateStart = element.DateStart,
                 PriceOfUnit = element.PriceOfUnit,

@@ -6,7 +6,7 @@ namespace Contracts.ViewModels
     {
         public long TransportId { get; set; }
 
-        public long PersonId { get; set; }
+        public long UserId { get; set; }
 
         public DateTime DateStart { get; set; }
 
@@ -19,5 +19,7 @@ namespace Contracts.ViewModels
         public TypeRent PriceType { get; set; }
 
         public long Id { get; set; }
+
+        public double FinalPrice { get; set; }
     }
 }

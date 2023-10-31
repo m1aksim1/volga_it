@@ -21,7 +21,7 @@ namespace RestApi.Controllers
         
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public List<TransportViewModel>? Transport(int start = 0,int count = 10,TransportType type = TransportType.All)
+        public List<TransportViewModel>? Transport(int start = 0,int count = 10,TransportType? type = null)
         {
             try
             {

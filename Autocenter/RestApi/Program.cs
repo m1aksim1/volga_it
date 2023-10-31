@@ -12,8 +12,8 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddTransient<IPersonStorage, PersonStorage>();
-builder.Services.AddTransient<IPersonLogic, PersonLogic>();
+builder.Services.AddTransient<IUserStorage, UserStorage>();
+builder.Services.AddTransient<IUserLogic, UserLogic>();
 builder.Services.AddTransient<ITransportStorage, TransportStorage>();
 builder.Services.AddTransient<ITransportLogic, TransportLogic>();
 builder.Services.AddTransient<IRentStorage, RentStorage>();

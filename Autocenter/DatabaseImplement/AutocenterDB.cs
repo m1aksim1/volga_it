@@ -19,7 +19,7 @@ namespace DatabaseImplement
             base.OnConfiguring(optionsBuilder);
         }
 
-        public virtual DbSet<Person> Persons { set; get; }
+        public virtual DbSet<User> Users { set; get; }
         public virtual DbSet<Transport> Transports { set; get; }
         public virtual DbSet<Rent> Rents { set; get; }
     }

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DatabaseImplement.Migrations
 {
     [DbContext(typeof(AutocenterDB))]
-    [Migration("20231030202647_Initial")]
-    partial class Initial
+    [Migration("20231031165041_Initial2")]
+    partial class Initial2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,36 +25,6 @@ namespace DatabaseImplement.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("DatabaseImplement.Models.Person", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("boolean");
-
-                    b.Property<double>("Money")
-                        .HasColumnType("double precision");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Username")
-                        .IsUnique();
-
-                    b.ToTable("Persons");
-                });
-
             modelBuilder.Entity("DatabaseImplement.Models.Rent", b =>
                 {
                     b.Property<long>("Id")
@@ -63,17 +33,14 @@ namespace DatabaseImplement.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<DateOnly>("DateEnd")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("DateEnd")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateOnly>("DateStart")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DateStart")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<double>("FinalPrice")
                         .HasColumnType("double precision");
-
-                    b.Property<long>("PersonId")
-                        .HasColumnType("bigint");
 
                     b.Property<double>("PriceOfUnit")
                         .HasColumnType("double precision");
@@ -82,6 +49,9 @@ namespace DatabaseImplement.Migrations
                         .HasColumnType("integer");
 
                     b.Property<long>("TransportId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -130,12 +100,42 @@ namespace DatabaseImplement.Migrations
                     b.Property<long>("OwnerId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("TypeTransport")
+                    b.Property<int>("TransportType")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.ToTable("Transports");
+                });
+
+            modelBuilder.Entity("DatabaseImplement.Models.User", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<double>("Balance")
+                        .HasColumnType("double precision");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

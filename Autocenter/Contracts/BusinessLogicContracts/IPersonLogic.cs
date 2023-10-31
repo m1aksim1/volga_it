@@ -4,12 +4,12 @@ using Contracts.BindingModels;
 
 namespace Contracts.BusinessLogicContracts
 {
-    public interface IPersonLogic
+    public interface IUserLogic
     {
-        List<PersonViewModel> ReadList(PersonSearchModel? model = null);
-        PersonViewModel? ReadElement(PersonSearchModel model);
-        bool Create(PersonBindingModel model);
-        bool Update(PersonBindingModel model);
-        bool Delete(PersonBindingModel model);
+        List<UserViewModel> ReadList(UserSearchModel? model = null);
+        UserViewModel? ReadElement(UserSearchModel model);
+        bool Create(UserBindingModel model);
+        bool Update(UserBindingModel model);
+        bool Delete(UserBindingModel model);
     }
 }

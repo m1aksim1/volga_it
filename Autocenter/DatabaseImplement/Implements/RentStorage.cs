@@ -4,6 +4,7 @@ using Contracts.StoragesContracts;
 using Contracts.ViewModels;
 using DatabaseImplement.Models;
 using DataModels.Enums;
+using System.Diagnostics.Metrics;
 
 namespace DatabaseImplement.Implements
 {
@@ -30,14 +31,21 @@ namespace DatabaseImplement.Implements
                 return null;
             }
             using var context = new AutocenterDB();
-            return context.Rents.FirstOrDefault(x => model.Id.HasValue && x.Id == model.Id || x.TransportId == model.TransportId)?.GetViewModel;
+            var user = context.Users.FirstOrDefault(x => x.Id == model.UserRoleId);
+            var Rent = context.Rents.FirstOrDefault(x => model.Id.HasValue && x.Id == model.Id || model.Id == null && x.TransportId == model.TransportId)?.GetViewModel;
+            var Transport = context.Transports.FirstOrDefault(x => x.Id == Rent.TransportId);
+            if (model.UserRoleId == Rent.UserId || model.UserRoleId == Transport.OwnerId || user.IsAdmin) 
+            {
+                return Rent;
+            }
+            return null;
         }
 
         public List<RentViewModel> GetFilteredList(RentSearchModel model)
         {
             using var context = new AutocenterDB();
             return context.Rents
-                .Where(x => x.TransportId == model.TransportId || x.PersonId == model.PersonId)
+                .Where(x => x.TransportId == model.TransportId || x.UserId == model.UserId)
                 .Select(x => x.GetViewModel)
                 .ToList();
         }

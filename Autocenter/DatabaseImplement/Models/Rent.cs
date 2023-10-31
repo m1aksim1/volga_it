@@ -10,7 +10,7 @@ namespace DatabaseImplement.Models
     public class Rent : IRentModel
     {
         public long TransportId { get; set; }
-        public long PersonId { get; set; }
+        public long UserId { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime? DateEnd { get; set; }
         public TypeRent PriceType { get; set; }
@@ -28,7 +28,7 @@ namespace DatabaseImplement.Models
             {
                 Id = model.Id,
                 TransportId = model.TransportId,
-                PersonId = model.PersonId,
+                UserId = model.UserId,
                 DateStart = model.DateStart,
                 DateEnd = model.DateEnd,
                 PriceType = model.PriceType,
@@ -36,16 +36,26 @@ namespace DatabaseImplement.Models
         }
         public void Update(RentBindingModel model)
         {
+            Id = model.Id;
+            TransportId = model.TransportId;
+            UserId = model.UserId;
+            DateStart = model.DateStart;
             DateEnd = model.DateEnd;
+            PriceType = model.PriceType;
+            PriceOfUnit = model.PriceOfUnit;
+            FinalPrice = model.FinalPrice;
+
         }
         public RentViewModel GetViewModel => new()
         {
             Id = Id,
             TransportId = TransportId,
-            PersonId = PersonId,
+            UserId = UserId,
             DateStart = DateStart,
             DateEnd = DateEnd,
             PriceType = PriceType,
+            PriceOfUnit = PriceOfUnit,
+            FinalPrice = FinalPrice,
         };
     }
 }

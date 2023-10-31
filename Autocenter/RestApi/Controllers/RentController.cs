@@ -20,10 +20,11 @@ namespace RestApi.Controllers
             _rentLogic = rentlogic;
             _transportLogic = transportLogic;
         }
+        
         [HttpGet]
-        public TransportViewModel Transport(double lat, double longitude, double radius, TransportType? type)
+        public List<TransportViewModel> Transport(double lat, double longitude, double radius, TransportType? type)
         {
-            return _transportLogic.ReadElement(new TransportSearchModel {
+            return _transportLogic.ReadList(new TransportSearchModel {
                 Latitude = lat,
                 Longitude = longitude,
                 Radius = radius,
@@ -31,28 +32,33 @@ namespace RestApi.Controllers
             }
             );
         }
+       
         [HttpGet]
-        public RentViewModel GetRent(long id)
+        [Route("{rentId}")]
+        public RentViewModel Rent(long rentId)
         {
-            return _rentLogic.ReadElement(new RentSearchModel { Id = id });
+            return _rentLogic.ReadElement(new RentSearchModel { Id = rentId, UserRoleId = Convert.ToInt32(User.Identity.Name)});
         }
+       
         [HttpGet]
         public List<RentViewModel> MyHistory()
         {
             return _rentLogic.ReadList(new RentSearchModel
             {
-                PersonId = Convert.ToInt64(User.Identity.Name)
+                UserId = Convert.ToInt64(User.Identity.Name)
             });
         }
+        
         [HttpGet]
         [Route("{transportId}")]
         public List<RentViewModel> TransportHistory(long transportId)
         {
             return _rentLogic.ReadList(new RentSearchModel
             {
-                TransportId = transportId
+                TransportId = transportId,
             });
         }
+        
         [HttpPost]
         [Authorize]
         [Route("{transportId}")]
@@ -60,18 +66,19 @@ namespace RestApi.Controllers
         {
             _rentLogic.Create(new RentBindingModel
             {
-                PersonId = Convert.ToInt32(User.Identity.Name),
+                UserId = Convert.ToInt32(User.Identity.Name),
                 TransportId = transportId,
                 PriceType = rentType,
             });
         }
+        
         [HttpPost]
         [Authorize]
         [Route("{rentId}")]
         public void End(long rentId,RentEndSchemaModel model)
         {
-            var rent = _rentLogic.ReadElement(new RentSearchModel { Id = rentId });
-            _rentLogic.End(rent.Id);
+            var rent = _rentLogic.ReadElement(new RentSearchModel { Id = rentId, UserRoleId = Convert.ToInt32(User.Identity.Name) });
+            _rentLogic.End(rent.Id, Convert.ToInt32(User.Identity.Name));
             
             var transport = _transportLogic.ReadElement(new TransportSearchModel { Id = rent.TransportId });
             _transportLogic.Update(new TransportBindingModel
@@ -89,20 +96,6 @@ namespace RestApi.Controllers
                 OwnerId = transport.OwnerId,
                 TransportType = transport.TransportType
             });
-        }
-        [HttpPut]
-        [Authorize]
-        [Route("{rentId}")]
-        public void Rent(long rentId, RentBindingModel model)
-        {
-            var rent = _rentLogic.Update(model);
-        }
-        [HttpPut]
-        [Authorize]
-        [Route("{rentId}")]
-        public void Rent(long rentId)
-        {
-            var rent = _rentLogic.Delete(new RentBindingModel { Id = rentId});
         }
     }
 }

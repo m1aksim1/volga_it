@@ -7,7 +7,7 @@ namespace Contracts.BindingModels
     {
         public long TransportId { get; set; }
 
-        public long PersonId { get; set; }
+        public long UserId { get; set; }
 
         public DateTime DateStart { get; set; } = DateTime.UtcNow;
 

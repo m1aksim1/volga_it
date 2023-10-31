@@ -4,13 +4,13 @@ using Contracts.ViewModels;
 
 namespace Contracts.StoragesContracts
 {
-    public interface IPersonStorage
+    public interface IUserStorage
     {
-        List<PersonViewModel> GetFullList();
-        List<PersonViewModel> GetFilteredList(PersonSearchModel model);
-        PersonViewModel? GetElement(PersonSearchModel model);
-        PersonViewModel? Insert(PersonBindingModel model);
-        PersonViewModel? Update(PersonBindingModel model);
-        PersonViewModel? Delete(PersonBindingModel model);
+        List<UserViewModel> GetFullList();
+        List<UserViewModel> GetFilteredList(UserSearchModel model);
+        UserViewModel? GetElement(UserSearchModel model);
+        UserViewModel? Insert(UserBindingModel model);
+        UserViewModel? Update(UserBindingModel model);
+        UserViewModel? Delete(UserBindingModel model);
     }
 }

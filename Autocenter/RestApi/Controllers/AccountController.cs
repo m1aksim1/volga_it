@@ -14,20 +14,20 @@ namespace RestApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class PersonController : Controller
+    public class AccountController : Controller
     {
-        private readonly IPersonLogic _logic;
-        public PersonController(IPersonLogic logic)
+        private readonly IUserLogic _logic;
+        public AccountController(IUserLogic logic)
         {
             _logic = logic;
         }
         [HttpGet]
         [Authorize]
-        public PersonViewModel Me()
+        public UserViewModel Me()
         {
             try
             {
-                return _logic.ReadElement(new PersonSearchModel
+                return _logic.ReadElement(new UserSearchModel
                 {
                     Id = Convert.ToInt32(User.Identity.Name)
                 });
@@ -42,7 +42,7 @@ namespace RestApi.Controllers
         {
             try
             {
-                var account = _logic.ReadElement(new PersonSearchModel
+                var account = _logic.ReadElement(new UserSearchModel
                 {
                     Username = model.Username,
                     Password = model.Password
@@ -75,7 +75,7 @@ namespace RestApi.Controllers
         {
             try
             {
-                _logic.Create(new PersonBindingModel
+                _logic.Create(new UserBindingModel
                 {
                     Username = model.Username,
                     Password = model.Password,
@@ -96,11 +96,11 @@ namespace RestApi.Controllers
         }
         [HttpPost]
         [Authorize]
-        public IActionResult Update(PersonBindingModel model)
+        public IActionResult Update(AccountSchemaModel model)
         {
             try
             {
-                _logic.Update(model);
+                _logic.Update(new UserBindingModel{Id = Convert.ToInt32(User.Identity.Name), Username = model.Username, Password = model.Password});
                 return Ok();    
             }
             catch (Exception ex)

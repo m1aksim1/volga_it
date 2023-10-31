@@ -90,6 +90,19 @@ namespace RestApi.Controllers
                 TransportType = transport.TransportType
             });
         }
-    
+        [HttpPut]
+        [Authorize]
+        [Route("{rentId}")]
+        public void Rent(long rentId, RentBindingModel model)
+        {
+            var rent = _rentLogic.Update(model);
+        }
+        [HttpPut]
+        [Authorize]
+        [Route("{rentId}")]
+        public void Rent(long rentId)
+        {
+            var rent = _rentLogic.Delete(new RentBindingModel { Id = rentId});
+        }
     }
 }

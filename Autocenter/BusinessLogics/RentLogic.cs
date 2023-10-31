@@ -58,7 +58,7 @@ namespace BusinessLogics
                     MinutePrice = transport.MinutePrice,
                     Model = transport.Model,
                     OwnerId = transport.OwnerId,
-                    TypeTransport = transport.TypeTransport
+                    TransportType = transport.TransportType
                 });
                 return true;
             }

@@ -21,7 +21,7 @@ namespace RestApi.Controllers
             _transportLogic = transportLogic;
         }
         [HttpGet]
-        public TransportViewModel Transport(double lat, double longitude, double radius, TypeTransport? type)
+        public TransportViewModel Transport(double lat, double longitude, double radius, TransportType? type)
         {
             return _transportLogic.ReadElement(new TransportSearchModel {
                 Latitude = lat,
@@ -87,7 +87,7 @@ namespace RestApi.Controllers
                 MinutePrice = transport.MinutePrice,
                 Model = transport.Model,
                 OwnerId = transport.OwnerId,
-                TypeTransport = transport.TypeTransport
+                TransportType = transport.TransportType
             });
         }
     

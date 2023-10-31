@@ -7,7 +7,7 @@ namespace DataModels
 	{
 		long OwnerId { get; }
         bool CanBeRented { get; }
-        TypeTransport TypeTransport { get; }
+        TransportType TransportType { get; }
 		string Model { get; }
 		string Color { get; }
 		string Identifier { get; }

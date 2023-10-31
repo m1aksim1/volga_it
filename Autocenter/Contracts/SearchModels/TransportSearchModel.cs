@@ -7,7 +7,7 @@ namespace Contracts.SearchModels
     {
         public bool CanBeRented { get; set; }
 
-        public TypeTransport? Type { get; set; }
+        public TransportType? Type { get; set; }
 
         public string Model { get; set; } = string.Empty;
 
@@ -28,5 +28,9 @@ namespace Contracts.SearchModels
         public long? Id { get; set; }
 
         public double Radius { get; set; }
+
+        public int Start { get; set; }
+        
+        public int Count { get; set; }
     }
 }

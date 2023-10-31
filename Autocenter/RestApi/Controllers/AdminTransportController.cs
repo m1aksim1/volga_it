@@ -2,35 +2,56 @@
 using Contracts.BusinessLogicContracts;
 using Contracts.SearchModels;
 using Contracts.ViewModels;
+using DataModels.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace RestApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class TransportController : Controller
+    public class AdminTransportController : Controller
     {
         private readonly ITransportLogic _logic;
-        public TransportController(ITransportLogic logic)
+        public AdminTransportController(ITransportLogic logic)
         {
             _logic = logic;
         }
         [HttpGet]
-        [Route("{id}")]
-        public TransportViewModel? TransportGet(int id)
+        [Authorize(Roles = "Admin")]
+        public List<TransportViewModel>? Transport(int start = 0,int count = 10,TransportType type = TransportType.All)
         {
             try
             {
-                return _logic.ReadElement(new TransportSearchModel { Id = id });
+                return _logic.ReadList(new TransportSearchModel {Start = start,Count = count, Type = type });
             }
             catch (Exception ex)
             {
                 throw;
             }
-            
+
         }
+        
+        [HttpGet]
+        [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+        public TransportViewModel? Transport(int id)
+        {
+            try
+            {
+                return _logic.ReadElement(new TransportSearchModel { Id = id});
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+        
         [HttpPost]
-        public void TransportCreate(TransportBindingModel model)
+        [Authorize(Roles = "Admin")]
+        public void Transport(TransportBindingModel model)
         {
             try
             {
@@ -43,7 +64,8 @@ namespace RestApi.Controllers
 
         }
         [HttpPut]
-        public void TransportUpdate(int id,TransportBindingModel model)
+        [Authorize(Roles = "Admin")]
+        public void Transport(int id, TransportBindingModel model)
         {
             try
             {
@@ -56,13 +78,13 @@ namespace RestApi.Controllers
 
         }
         [HttpDelete]
+        [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public void TransportDelete(int id)
         {
             try
             {
-                TransportBindingModel Model = new TransportBindingModel();
-                Model.Id = id;
-                _logic.Delete(Model);
+                _logic.Delete(new TransportBindingModel { Id = id });
             }
             catch (Exception ex)
             {

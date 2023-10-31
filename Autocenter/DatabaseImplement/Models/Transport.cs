@@ -18,7 +18,7 @@ namespace DatabaseImplement.Models
     public class Transport : ITransportModel
     {
         public bool CanBeRented { get; set; }
-        public TypeTransport TypeTransport { get; set; }
+        public TransportType TransportType { get; set; }
         public string Model { get; set; } = string.Empty;
         public string Color { get; set; } = string.Empty;
         public string Identifier { get; set; } = string.Empty;
@@ -39,7 +39,7 @@ namespace DatabaseImplement.Models
             return new Transport()
             {
                 CanBeRented = model.CanBeRented,
-                TypeTransport = model.TypeTransport,
+                TransportType = model.TransportType,
                 Model = model.Model,
                 Color = model.Color,
                 Identifier = model.Identifier,
@@ -56,7 +56,7 @@ namespace DatabaseImplement.Models
         public TransportViewModel GetViewModel => new()
         {
             CanBeRented =  CanBeRented, 
-            TypeTransport = TypeTransport,
+            TransportType = TransportType,
             Model = Model,
             Color = Color,
             Identifier = Identifier,
@@ -73,7 +73,7 @@ namespace DatabaseImplement.Models
         public void Update(TransportBindingModel model)
         {
             CanBeRented = model.CanBeRented;
-            TypeTransport = model.TypeTransport;
+            TransportType = model.TransportType;
             Model = model.Model;
             Color = model.Color;
             Identifier = model.Identifier;

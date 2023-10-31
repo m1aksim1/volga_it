@@ -6,6 +6,7 @@ using DatabaseImplement.Models;
 using DataModels.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
@@ -55,13 +56,23 @@ namespace DatabaseImplement.Implements
                 return res != null ? new() { res } : new();
             }
             using var context = new AutocenterDB();
-            var query = context.Transports;
-            return context.Transports
-               .Select(x => x.GetViewModel)
-                .Where(x => x.CanBeRented && (model.Type == null || x.TypeTransport == model.Type) &&
-                        model.Latitude - model.Radius <= x.Latitude && x.Latitude <= model.Latitude + model.Radius &&
-                        model.Longitude - model.Radius <= x.Longitude && x.Longitude <= model.Longitude + model.Radius)
-               .ToList();
+            if (model.Radius > 0)
+            {
+                return context.Transports
+                   .Select(x => x.GetViewModel)
+                   .Where(x => x.CanBeRented && (model.Type == TransportType.All || x.TransportType == model.Type) &&
+                            model.Latitude - model.Radius <= x.Latitude && x.Latitude <= model.Latitude + model.Radius &&
+                            model.Longitude - model.Radius <= x.Longitude && x.Longitude <= model.Longitude + model.Radius)
+                   .ToList();
+            }
+            else
+            {
+                return context.Transports
+                   .Skip(model.Start).Take(model.Count)
+                   .Select(x => x.GetViewModel)
+                   .Where(x => model.Type == TransportType.All || x.TransportType == model.Type)
+                   .ToList();
+            }
         }
 
         public List<TransportViewModel> GetFullList()

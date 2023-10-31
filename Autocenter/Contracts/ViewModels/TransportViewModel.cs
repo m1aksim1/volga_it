@@ -8,7 +8,7 @@ namespace Contracts.ViewModels
     {
         public bool CanBeRented { get; set; }
 
-        public TypeTransport TypeTransport { get; set; }
+        public TransportType TransportType { get; set; }
 
         public string Model { get; set; } = string.Empty;
 
